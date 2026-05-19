@@ -1,0 +1,8 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/Muhasabaa.API/Muhasabaa.API.csproj" />
+    <Project Path="src/Muhasabaa.Application/Muhasabaa.Application.csproj" />
+    <Project Path="src/Muhasabaa.Domain/Muhasabaa.Domain.csproj" />
+    <Project Path="src/Muhasabaa.Infrastructure/Muhasabaa.Infrastructure.csproj" />
+  </Folder>
+</Solution>

@@ -1,0 +1,6 @@
+@Muhasabaa.API_HostAddress = http://localhost:5239
+
+GET {{Muhasabaa.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "WAEzRK7Itxk=",
+  "dgSpecHash": "hL/aOz0sDfQ=",
   "success": true,
   "projectFilePath": "/home/zeyad/projects/muhasaba/src/Muhasabaa.Application/Muhasabaa.Application.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "/home/zeyad/.nuget/packages/erroror/2.1.1/erroror.2.1.1.nupkg.sha512"
+  ],
   "logs": []
 }

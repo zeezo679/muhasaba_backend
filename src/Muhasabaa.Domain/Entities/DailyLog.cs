@@ -15,7 +15,6 @@ public class DailyLog
 
     public DateTime LoggedAt { get; set; } = DateTime.UtcNow;
 
-    public User User { get; set; } = null!;
     public Habit? Habit { get; set; }
     public CustomHabit? CustomHabit { get; set; }
 }

@@ -1,0 +1,15 @@
+﻿services:
+  db:
+    image: postgres:16
+    container_name: muhasabaa_db
+    environment:
+      POSTGRES_USER: muhasabaa
+      POSTGRES_PASSWORD: muhasabaa_dev
+      POSTGRES_DB: muhasabaa
+    ports:
+      - "5433:5433"
+    volumes:
+      - muhasabaa_pgdata:/var/lib/postgresql/data
+
+volumes:
+  muhasabaa_pgdata:

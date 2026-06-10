@@ -1,8 +1,11 @@
+using System.ComponentModel.DataAnnotations.Schema;
 using Muhasabaa.Domain.Entities.Prayer;
+using Muhasabaa.Domain.Entities.Habits;
 using Muhasabaa.Domain.Enums;
 
-namespace Muhasabaa.Domain.Entities;
+namespace Muhasabaa.Domain.Entities.Helpers;
 
+[NotMapped]
 public class DailyScoreCalculator
 {
     public DailyScore Calculate(
@@ -11,6 +14,7 @@ public class DailyScoreCalculator
         int quranPages,
         int gymMinutes,
         int screenTimeHours,
+        bool prayedQiyam,
         IEnumerable<CustomHabitLog> customHabits,
         Gender? gender)
     {
@@ -18,12 +22,14 @@ public class DailyScoreCalculator
                       + HabitScoring.DhikrMaxScore
                       + HabitScoring.QuranRecitationMaxScore
                       + HabitScoring.GymMaxScore
+                      + HabitScoring.QiyamScore
                       + customHabits.Count() * HabitScoring.CustomHabitScore;
 
         int earned = prayers.Sum(p => PrayerRules.CalculatePrayerScore(p.PrayerName, p.Status, p.PrayedSunnah, gender))
                      + HabitScoring.CalculateDhikrScore(dhikrCount)
                      + HabitScoring.CalculateQuranRecitationScore(quranPages)
                      + HabitScoring.CalculateGymScore(gymMinutes)
+                     + HabitScoring.CalculateQiyam(prayedQiyam)
                      - HabitScoring.CalculateScreenTimePenalty(screenTimeHours)
                      + customHabits.Count(h => h.Completed) * HabitScoring.CustomHabitScore;
 

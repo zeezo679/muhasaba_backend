@@ -1,6 +1,7 @@
 using Muhasabaa.Domain.Errors;
 
-namespace Muhasabaa.Domain.Entities;
+namespace Muhasabaa.Domain.Entities.UserData;
+
 using ErrorOr;
 
 public class RefreshToken

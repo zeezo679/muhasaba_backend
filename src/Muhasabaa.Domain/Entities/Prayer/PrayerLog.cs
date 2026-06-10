@@ -15,7 +15,6 @@ public class PrayerLog
     public int Score { get; private set; }
     public int MaximumScore { get; private set; }
     public bool PrayedSunnah { get; private set; }
-    public bool PrayedQiyam { get; private set; }
     
     public DateTime LoggedAt { get; private set; } = DateTime.UtcNow;
     
@@ -35,7 +34,6 @@ public class PrayerLog
             Score = score,
             MaximumScore = maximumScore,
             PrayedSunnah = prayedSunnah,
-            PrayedQiyam = prayedQiyam,
             LoggedAt = DateTime.UtcNow
         };
     }

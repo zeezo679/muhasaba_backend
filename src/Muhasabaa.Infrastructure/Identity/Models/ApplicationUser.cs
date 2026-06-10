@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Identity;
-using Muhasabaa.Domain.Entities;
+using Muhasabaa.Domain.Entities.DailyLogs;
+using Muhasabaa.Domain.Entities.Habits;
 using Muhasabaa.Infrastructure.Identity.Enums;
 
 namespace Muhasabaa.Infrastructure.Identity.Models;

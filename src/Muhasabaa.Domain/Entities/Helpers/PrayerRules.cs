@@ -1,7 +1,9 @@
+using System.ComponentModel.DataAnnotations.Schema;
 using Muhasabaa.Domain.Enums;
 
-namespace Muhasabaa.Domain.Entities.Prayer;
+namespace Muhasabaa.Domain.Entities.Helpers;
 
+[NotMapped]
 public static class PrayerRules
 {
     private static readonly HashSet<PrayerName> PrayersWithSunnah = [

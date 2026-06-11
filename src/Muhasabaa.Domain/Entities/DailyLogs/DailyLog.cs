@@ -6,9 +6,18 @@ public class DailyLog
     public Guid Id { get; private set; }
     public Guid UserId { get; private set; }
     public DateOnly Date { get; private set; }
+    
+    //Computed data
     public int EarnedScore { get; private set; }
     public int MaximumScore { get; private set; }
     public int Percentage { get; private set; }
+    
+    // Raw data for analysis
+    public int DhikrCount { get; private set; }
+    public int QuranPages { get; private set; }
+    public int GymMinutes { get; private set; }
+    public int ScreenTimeHours { get; private set; }
+    public bool PrayedQiyam { get; private set; }
     public int SleepHours { get; private set; }
     public int DeepWorkHours { get; private set; }
     public DateTime CalculatedAt { get; private set; }

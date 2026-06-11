@@ -11,7 +11,4 @@ public class ApplicationUser : IdentityUser<Guid>
     public string? ProfileImageUrl { get; set; }
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     public Gender? Gender { get; set; }
-
-    public ICollection<DailyLog> DailyLogs { get; set; } = [];
-    public ICollection<CustomHabit> CustomHabits { get; set; } = [];
 }

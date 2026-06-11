@@ -2,7 +2,7 @@ using ErrorOr;
 using Muhasabaa.Domain.Errors;
 using Muhasabaa.Domain.Enums;
 
-namespace Muhasabaa.Domain.Entities;
+namespace Muhasabaa.Domain.Entities.Habits;
 
 public class Habit
 {

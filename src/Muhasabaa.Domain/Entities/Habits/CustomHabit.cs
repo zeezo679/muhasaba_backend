@@ -1,13 +1,14 @@
 using ErrorOr;
 using Muhasabaa.Domain.Errors;
 
-namespace Muhasabaa.Domain.Entities;
+namespace Muhasabaa.Domain.Entities.Habits;
 
 public class CustomHabit
 {
     private CustomHabit() { } // private constructor to enforce factory method usage
     public Guid Id { get; private set; }
     public Guid UserId { get; private set; }
+    
     public string NameAr { get; private set; } = string.Empty;
     public int SortOrder { get; private set; }
     public bool IsActive { get; private set; } = true;

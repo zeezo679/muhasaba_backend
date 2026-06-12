@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Muhasabaa.Infrastructure.Identity.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Muhasabaa.Application.Common.Interfaces;
 using Muhasabaa.Domain.Entities.DailyLogs;
 using Muhasabaa.Domain.Entities.Habits;
 using Muhasabaa.Domain.Entities.Prayer;
@@ -9,7 +9,7 @@ using Muhasabaa.Domain.Entities.UserData;
 
 namespace Muhasabaa.Infrastructure;
 
-public class AppDbContext(DbContextOptions<AppDbContext> options) : IdentityDbContext<ApplicationUser, IdentityRole<Guid>, Guid>(options)
+public class AppDbContext(DbContextOptions<AppDbContext> options) : IdentityDbContext<ApplicationUser, IdentityRole<Guid>, Guid>(options), IAppDbContext
 {
     
     protected override void OnModelCreating(ModelBuilder builder)
@@ -18,7 +18,7 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : IdentityDbCo
         builder.ApplyConfigurationsFromAssembly(typeof(AppDbContext).Assembly);
     }
     
-    public DbSet<ApplicationUser> Users => Set<ApplicationUser>();
+    public new DbSet<ApplicationUser> Users => Set<ApplicationUser>();
     public DbSet<RefreshToken> RefreshTokens => Set<RefreshToken>();
     public DbSet<UserSession> UserSessions => Set<UserSession>();
     public DbSet<UserSettings> UserSettings => Set<UserSettings>();

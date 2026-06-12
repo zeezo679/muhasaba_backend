@@ -8,7 +8,7 @@ public class RefreshToken
 {
     public string Token {get; private set; } = string.Empty;
     public Guid UserId { get; private set; }
-    public DateTime ExpiresAt { get;  set; }
+    public DateTime ExpiresAt { get; private set; }
     public bool IsRevoked { get; private set; } = false;
     public bool IsExpired => DateTime.UtcNow >= ExpiresAt;
     

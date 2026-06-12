@@ -1,10 +1,15 @@
 {
   "version": 2,
-  "dgSpecHash": "hL/aOz0sDfQ=",
+  "dgSpecHash": "FSEEtFbBDxs=",
   "success": true,
   "projectFilePath": "/home/zeyad/projects/muhasaba/src/Muhasabaa.Application/Muhasabaa.Application.csproj",
   "expectedPackageFiles": [
-    "/home/zeyad/.nuget/packages/erroror/2.1.1/erroror.2.1.1.nupkg.sha512"
+    "/home/zeyad/.nuget/packages/erroror/2.1.1/erroror.2.1.1.nupkg.sha512",
+    "/home/zeyad/.nuget/packages/mediatr/12.5.0/mediatr.12.5.0.nupkg.sha512",
+    "/home/zeyad/.nuget/packages/mediatr.contracts/2.0.1/mediatr.contracts.2.0.1.nupkg.sha512",
+    "/home/zeyad/.nuget/packages/microsoft.entityframeworkcore/10.0.8/microsoft.entityframeworkcore.10.0.8.nupkg.sha512",
+    "/home/zeyad/.nuget/packages/microsoft.entityframeworkcore.abstractions/10.0.8/microsoft.entityframeworkcore.abstractions.10.0.8.nupkg.sha512",
+    "/home/zeyad/.nuget/packages/microsoft.entityframeworkcore.analyzers/10.0.8/microsoft.entityframeworkcore.analyzers.10.0.8.nupkg.sha512"
   ],
   "logs": []
 }

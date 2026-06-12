@@ -1,9 +1,7 @@
 using Microsoft.AspNetCore.Identity;
-using Muhasabaa.Domain.Entities.DailyLogs;
-using Muhasabaa.Domain.Entities.Habits;
-using Muhasabaa.Infrastructure.Identity.Enums;
+using Muhasabaa.Domain.Enums;
 
-namespace Muhasabaa.Infrastructure.Identity.Models;
+namespace Muhasabaa.Domain.Entities.UserData;
 
 public class ApplicationUser : IdentityUser<Guid>
 {
@@ -12,3 +10,4 @@ public class ApplicationUser : IdentityUser<Guid>
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     public Gender? Gender { get; set; }
 }
+

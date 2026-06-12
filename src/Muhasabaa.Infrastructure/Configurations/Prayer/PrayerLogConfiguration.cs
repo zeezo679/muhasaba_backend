@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Muhasabaa.Domain.Entities.Prayer;
-using Muhasabaa.Infrastructure.Identity.Models;
+using Muhasabaa.Domain.Entities.UserData;
 
 namespace Muhasabaa.Infrastructure.Configurations.Prayer;
 

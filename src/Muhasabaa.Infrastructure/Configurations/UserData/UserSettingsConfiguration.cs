@@ -1,7 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Muhasabaa.Domain.Entities.UserData;
-using Muhasabaa.Infrastructure.Identity.Models;
 
 namespace Muhasabaa.Infrastructure.Configurations.UserData;
 

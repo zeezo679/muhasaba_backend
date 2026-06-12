@@ -1,6 +1,7 @@
 using Muhasabaa.Domain.Enums;
 using Muhasabaa.Domain.Errors;
 using ErrorOr;
+using Muhasabaa.Domain.Entities.Helpers;
 
 namespace Muhasabaa.Domain.Entities.Prayer;
 
@@ -20,7 +21,7 @@ public class PrayerLog
     
     private PrayerLog() { } // for EF Core
     
-    public static ErrorOr<PrayerLog> Create(Guid userId, PrayerName prayerName, PrayerStatus status, DateOnly date, Gender? gender, int score, int maximumScore, bool prayedSunnah, bool prayedQiyam)
+    public static ErrorOr<PrayerLog> Create(Guid userId, PrayerName prayerName, PrayerStatus status, DateOnly date, Gender? gender, int score, int maximumScore, bool prayedSunnah)
     {
         if(status.HasFlag(PrayerStatus.InJamaah) && gender != Gender.Male) return PrayerLogErrors.InvalidGender;
         
@@ -31,7 +32,7 @@ public class PrayerLog
             PrayerName = prayerName,
             Status = status,
             Date = date,
-            Score = score,
+            Score = PrayerRules.CalculatePrayerScore(prayerName, status, prayedSunnah, gender),
             MaximumScore = maximumScore,
             PrayedSunnah = prayedSunnah,
             LoggedAt = DateTime.UtcNow

@@ -26,4 +26,8 @@
     <ProjectReference Include="..\Muhasabaa.Infrastructure\Muhasabaa.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Controllers\" />
+  </ItemGroup>
+
 </Project>

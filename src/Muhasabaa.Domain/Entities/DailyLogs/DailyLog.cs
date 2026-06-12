@@ -25,13 +25,28 @@ public class DailyLog
 
     private DailyLog() { } // for EF Core
 
-    public static ErrorOr<DailyLog> Create(Guid userId, DateOnly date, int earnedScore, int maximumScore, int sleepHours, int deepWorkHours)
+    public static ErrorOr<DailyLog> Create(
+        Guid userId, 
+        DateOnly date, 
+        int dhikrCount,
+        int quranPages,
+        int gymMinutes,
+        int screenTimeHours,
+        bool prayedQiyam,
+        int earnedScore, 
+        int maximumScore, 
+        int sleepHours, 
+        int deepWorkHours)
     {
         if (earnedScore < 0) return Error.Failure("EarnedScore must be non-negative.");
         if (maximumScore <= 0) return Error.Failure("MaximumScore must be greater than zero.");
         if (earnedScore > maximumScore) return Error.Failure("EarnedScore cannot exceed MaximumScore.");
         if (sleepHours < 0 || sleepHours > 24) return Error.Failure("SleepHours must be between 0 and 24.");
         if (deepWorkHours < 0 || deepWorkHours > 24) return Error.Failure("DeepWorkHours must be between 0 and 24.");
+        if (dhikrCount < 0) return Error.Failure("DhikrCount must be non-negative.");
+        if (quranPages < 0) return Error.Failure("QuranPages must be non-negative.");
+        if (gymMinutes < 0) return Error.Failure("GymMinutes must be non-negative.");
+        if (screenTimeHours < 0) return Error.Failure("ScreenTimeHours must be non-negative.");
 
         int percentage = (int)Math.Round((double)earnedScore / maximumScore * 100);
 
@@ -40,6 +55,11 @@ public class DailyLog
             Id = Guid.NewGuid(),
             UserId = userId,
             Date = date,
+            DhikrCount = dhikrCount,
+            QuranPages = quranPages,
+            GymMinutes = gymMinutes,
+            ScreenTimeHours = screenTimeHours,
+            PrayedQiyam = prayedQiyam,
             EarnedScore = earnedScore,
             MaximumScore = maximumScore,
             Percentage = percentage,

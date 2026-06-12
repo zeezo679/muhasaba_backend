@@ -1,10 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "BM9bayxbqwg=",
+  "dgSpecHash": "4Zo9Iz186Ug=",
   "success": true,
   "projectFilePath": "/home/zeyad/projects/muhasaba/src/Muhasabaa.Infrastructure/Muhasabaa.Infrastructure.csproj",
   "expectedPackageFiles": [
+    "/home/zeyad/.nuget/packages/erroror/2.1.1/erroror.2.1.1.nupkg.sha512",
     "/home/zeyad/.nuget/packages/humanizer.core/2.14.1/humanizer.core.2.14.1.nupkg.sha512",
+    "/home/zeyad/.nuget/packages/mediatr/12.5.0/mediatr.12.5.0.nupkg.sha512",
+    "/home/zeyad/.nuget/packages/mediatr.contracts/2.0.1/mediatr.contracts.2.0.1.nupkg.sha512",
     "/home/zeyad/.nuget/packages/microsoft.aspnetcore.authentication/2.3.0/microsoft.aspnetcore.authentication.2.3.0.nupkg.sha512",
     "/home/zeyad/.nuget/packages/microsoft.aspnetcore.authentication.abstractions/2.3.0/microsoft.aspnetcore.authentication.abstractions.2.3.0.nupkg.sha512",
     "/home/zeyad/.nuget/packages/microsoft.aspnetcore.authentication.cookies/2.3.9/microsoft.aspnetcore.authentication.cookies.2.3.9.nupkg.sha512",

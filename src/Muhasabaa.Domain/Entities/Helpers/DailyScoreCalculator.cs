@@ -30,7 +30,7 @@ public class DailyScoreCalculator
                      + HabitScoring.CalculateQuranRecitationScore(quranPages)
                      + HabitScoring.CalculateGymScore(gymMinutes)
                      + HabitScoring.CalculateQiyam(prayedQiyam)
-                     - HabitScoring.CalculateScreenTimePenalty(screenTimeHours)
+                     + HabitScoring.CalculateScreenTimePenalty(screenTimeHours)
                      + customHabits.Count(h => h.Completed) * HabitScoring.CustomHabitScore;
 
         earned = Math.Max(0, earned);

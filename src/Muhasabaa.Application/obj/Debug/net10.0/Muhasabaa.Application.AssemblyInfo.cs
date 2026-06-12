@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Muhasabaa.Application")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ded4c1a9c1b7ea0acad805e1fe684a95ba826c64")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+04696c599c0576cad7150393c50c846c1739ef8d")]
 [assembly: System.Reflection.AssemblyProductAttribute("Muhasabaa.Application")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Muhasabaa.Application")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

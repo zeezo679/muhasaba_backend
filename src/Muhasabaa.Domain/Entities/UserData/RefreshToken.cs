@@ -28,4 +28,6 @@ public class RefreshToken
             IsRevoked = false
         };
     }
+    
+    public void Revoke() => IsRevoked = true;
 }

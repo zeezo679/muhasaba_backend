@@ -7,7 +7,7 @@ namespace Muhasabaa.Application.Common.Interfaces;
 public interface ITokenService
 {
     string GenerateAccessToken(ApplicationUser user);
-    Task<RefreshToken> GenerateRefreshTokenAsync(Guid userId);
+    ErrorOr<RefreshToken> GenerateRefreshToken(Guid userId);
     Task<ErrorOr<Deleted>> RevokeTokenAsync(string token);
 }
 

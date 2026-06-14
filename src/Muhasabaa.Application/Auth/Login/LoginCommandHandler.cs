@@ -18,8 +18,8 @@ public sealed class LoginCommandHandler(IIdentityService identityService, IToken
 
         var user = userResult.Value;
         var accessToken = tokenService.GenerateAccessToken(user);
-        var refreshToken = await tokenService.GenerateRefreshTokenAsync(user.Id);
-
+        var refreshToken = tokenService.GenerateRefreshToken(user.Id).Value;
+        
         dbContext.RefreshTokens.Add(refreshToken);
         await dbContext.SaveChangesAsync(cancellationToken);
 

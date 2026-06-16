@@ -14,6 +14,13 @@ public class IdentityService : IIdentityService
 {
     private readonly IAppDbContext _dbContext;
     private readonly UserManager<ApplicationUser> _userManager;
+    
+    public IdentityService(IAppDbContext dbContext, UserManager<ApplicationUser> userManager)
+    {
+        _dbContext = dbContext;
+        _userManager = userManager;
+    }
+    
     public async Task<ErrorOr<ApplicationUser>> CreateUserAsync(string name, string email, string password, Gender? gender)
     {
         

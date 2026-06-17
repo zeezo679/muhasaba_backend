@@ -21,7 +21,7 @@ public class PrayerLog
     
     private PrayerLog() { } // for EF Core
     
-    public static ErrorOr<PrayerLog> Create(Guid userId, PrayerName prayerName, PrayerStatus status, DateOnly date, Gender? gender, int score, int maximumScore, bool prayedSunnah)
+    public static ErrorOr<PrayerLog> Create(Guid userId, PrayerName prayerName, PrayerStatus status, DateOnly date, Gender? gender, bool prayedSunnah)
     {
         if(status.HasFlag(PrayerStatus.InJamaah) && gender != Gender.Male) return PrayerLogErrors.InvalidGender;
         
@@ -33,7 +33,7 @@ public class PrayerLog
             Status = status,
             Date = date,
             Score = PrayerRules.CalculatePrayerScore(prayerName, status, prayedSunnah, gender),
-            MaximumScore = maximumScore,
+            MaximumScore = PrayerRules.MaximumScore,
             PrayedSunnah = prayedSunnah,
             LoggedAt = DateTime.UtcNow
         };

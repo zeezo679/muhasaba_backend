@@ -3,6 +3,7 @@ using ErrorOr;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
 using Muhasabaa.Application.Auth.Login;
 using Muhasabaa.Application.Auth.Logout;
 using Muhasabaa.Application.Auth.Refresh;
@@ -13,6 +14,7 @@ namespace Muhasabaa.API.Controllers;
 
 [ApiController]
 [Route("api/auth")]
+[EnableRateLimiting("auth")]
 public sealed class AuthController(ISender sender) : AppBaseController
 {
     [HttpPost("register")]

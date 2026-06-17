@@ -34,7 +34,7 @@ public class TokenService : ITokenService
             issuer: _jwtOptions.Issuer,
             audience: _jwtOptions.Audience,
             claims: claims,
-            expires: DateTime.Now.AddMinutes(_jwtOptions.TokenLifetimeInMinutes),
+            expires: DateTime.Now.AddMinutes(1),
             signingCredentials: creds);
 
         return new JwtSecurityTokenHandler().WriteToken(token);
@@ -69,7 +69,7 @@ public class TokenService : ITokenService
 
         if (refreshToken.IsRevoked || refreshToken.IsExpired)
         {
-            return Error.Validation("Auth.TokenInvalid", "The token is already invalid.");
+            return Error.Unauthorized("Auth.TokenInvalid", "The token is already invalid.");
         }
 
         refreshToken.Revoke();
@@ -80,6 +80,13 @@ public class TokenService : ITokenService
 
     private IEnumerable<Claim> BuildClaims(ApplicationUser user)
     {
+        
+        if(user.Email is null)
+            throw new InvalidOperationException("User email cannot be null when generating claims.");
+        
+        if(user.Gender is null)
+            throw new InvalidOperationException("User gender cannot be null when generating claims.");
+        
         var claims = new List<Claim>
         {
             new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),

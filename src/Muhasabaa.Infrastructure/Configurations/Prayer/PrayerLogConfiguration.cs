@@ -18,6 +18,9 @@ public class PrayerLogConfiguration : IEntityTypeConfiguration<PrayerLog>
             .HasForeignKey(pl => pl.UserId)
             .OnDelete(DeleteBehavior.Cascade);
         
+        builder.HasIndex(pl => new { pl.UserId, pl.Date })
+            .IsUnique(false);
+        
         builder.HasIndex(pl => new { pl.UserId, pl.Date, pl.PrayerName })
             .IsUnique();
     }

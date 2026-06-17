@@ -51,12 +51,12 @@ public class IdentityService : IIdentityService
         var user = await _userManager.FindByEmailAsync(email);
         
         if(user is null)
-            return Error.Failure("InvalidCredentials", "Invalid email or password.");
+            return Error.Unauthorized("InvalidCredentials", "Invalid email or password.");
         
         var isPasswordValid = await _userManager.CheckPasswordAsync(user, password);
         
         if(!isPasswordValid)
-            return Error.Failure("InvalidCredentials", "Invalid email or password.");
+            return Error.Unauthorized("InvalidCredentials", "Invalid email or password.");
         
         return user;
     }

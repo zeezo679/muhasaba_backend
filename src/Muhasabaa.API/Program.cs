@@ -12,6 +12,7 @@ builder.Services.AddOpenApi();
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddJwtAuthentication(builder.Configuration);
 builder.Services.AddMediatr();
+builder.Services.AddRateLimiting();
 
 var app = builder.Build();
 

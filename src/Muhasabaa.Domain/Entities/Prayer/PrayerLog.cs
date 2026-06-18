@@ -1,4 +1,7 @@
 using Muhasabaa.Domain.Enums;
+using Muhasabaa.Domain.Errors;
+using ErrorOr;
+using Muhasabaa.Domain.Entities.Helpers;
 
 namespace Muhasabaa.Domain.Entities.Prayer;
 
@@ -6,9 +9,33 @@ public class PrayerLog
 {
     public Guid Id { get; private set; }
     public Guid UserId { get; private set; }
+    
     public PrayerName PrayerName { get; private set; }
     public PrayerStatus Status { get; private set; }
     public DateOnly Date { get; private set; }
+    public int Score { get; private set; }
+    public int MaximumScore { get; private set; }
     public bool PrayedSunnah { get; private set; }
+    
     public DateTime LoggedAt { get; private set; } = DateTime.UtcNow;
+    
+    private PrayerLog() { } // for EF Core
+    
+    public static ErrorOr<PrayerLog> Create(Guid userId, PrayerName prayerName, PrayerStatus status, DateOnly date, Gender? gender, bool prayedSunnah)
+    {
+        if(status.HasFlag(PrayerStatus.InJamaah) && gender != Gender.Male) return PrayerLogErrors.InvalidGender;
+        
+        return new PrayerLog
+        {
+            Id = Guid.NewGuid(),
+            UserId = userId,
+            PrayerName = prayerName,
+            Status = status,
+            Date = date,
+            Score = PrayerRules.CalculatePrayerScore(prayerName, status, prayedSunnah, gender),
+            MaximumScore = PrayerRules.MaximumScore,
+            PrayedSunnah = prayedSunnah,
+            LoggedAt = DateTime.UtcNow
+        };
+    }
 }

@@ -1,0 +1,11 @@
+{
+    "csharp-dev-tools.entityFramework.migrationPreferences": {
+        "Muhasabaa.slnx": {
+            "startupProject": "src/Muhasabaa.API/Muhasabaa.API.csproj",
+            "migrationsProject": "src/Muhasabaa.Infrastructure/Muhasabaa.Infrastructure.csproj",
+            "dbContextClass": "AppDbContext",
+            "migrationsFolder": "Migrations",
+            "targetMigration": ""
+        }
+    }
+}

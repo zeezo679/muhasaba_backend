@@ -10,10 +10,11 @@
 using System;
 using System.Reflection;
 
+[assembly: Microsoft.Extensions.Configuration.UserSecrets.UserSecretsIdAttribute("27cd0f36-9a9f-46df-b678-13689c544f0c")]
 [assembly: System.Reflection.AssemblyCompanyAttribute("Muhasabaa.API")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5266643e8fb7a4a54e43ddff99562fff6e319d22")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c2f16fd95fb72b99cf335040340599162a4a7bef")]
 [assembly: System.Reflection.AssemblyProductAttribute("Muhasabaa.API")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Muhasabaa.API")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

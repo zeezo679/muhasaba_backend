@@ -6,6 +6,9 @@
 # dotenv files
 .env
 
+# appsettings.development.json
+**/appsettings.Development.json
+
 # User-specific files
 *.rsuser
 *.suo
@@ -480,3 +483,7 @@ $RECYCLE.BIN/
 
 # Vim temporary swap files
 *.swp
+
+# GSD Core - planning and agent files
+.planning/
+.agent/

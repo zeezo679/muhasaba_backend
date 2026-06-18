@@ -1,10 +1,27 @@
 {
   "version": 2,
-  "dgSpecHash": "xzwQbY78wDM=",
+  "dgSpecHash": "ZdojU01HDPc=",
   "success": true,
   "projectFilePath": "/home/zeyad/projects/muhasaba/src/Muhasabaa.Application/Muhasabaa.Application.csproj",
   "expectedPackageFiles": [
-    "/home/zeyad/.nuget/packages/erroror/2.1.1/erroror.2.1.1.nupkg.sha512"
+    "/home/zeyad/.nuget/packages/erroror/2.1.1/erroror.2.1.1.nupkg.sha512",
+    "/home/zeyad/.nuget/packages/fluentvalidation/12.1.1/fluentvalidation.12.1.1.nupkg.sha512",
+    "/home/zeyad/.nuget/packages/fluentvalidation.dependencyinjectionextensions/12.1.1/fluentvalidation.dependencyinjectionextensions.12.1.1.nupkg.sha512",
+    "/home/zeyad/.nuget/packages/mediatr/12.5.0/mediatr.12.5.0.nupkg.sha512",
+    "/home/zeyad/.nuget/packages/mediatr.contracts/2.0.1/mediatr.contracts.2.0.1.nupkg.sha512",
+    "/home/zeyad/.nuget/packages/microsoft.entityframeworkcore/10.0.8/microsoft.entityframeworkcore.10.0.8.nupkg.sha512",
+    "/home/zeyad/.nuget/packages/microsoft.entityframeworkcore.abstractions/10.0.8/microsoft.entityframeworkcore.abstractions.10.0.8.nupkg.sha512",
+    "/home/zeyad/.nuget/packages/microsoft.entityframeworkcore.analyzers/10.0.8/microsoft.entityframeworkcore.analyzers.10.0.8.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "Undefined",
+      "level": "Warning",
+      "message": "Problem reading the cache file /home/zeyad/projects/muhasaba/src/Muhasabaa.Application/obj/project.nuget.cache : '<' is an invalid start of a property name. Expected a '\"'. Path: $ | LineNumber: 2 | BytePositionInLine: 0.",
+      "projectPath": "/home/zeyad/projects/muhasaba/src/Muhasabaa.Application/Muhasabaa.Application.csproj",
+      "warningLevel": 1,
+      "filePath": "/home/zeyad/projects/muhasaba/src/Muhasabaa.Application/Muhasabaa.Application.csproj",
+      "targetGraphs": []
+    }
+  ]
 }

@@ -7,7 +7,7 @@
       POSTGRES_PASSWORD: muhasabaa_dev
       POSTGRES_DB: muhasabaa
     ports:
-      - "5433:5433"
+      - "5433:5432"   
     volumes:
       - muhasabaa_pgdata:/var/lib/postgresql/data
 

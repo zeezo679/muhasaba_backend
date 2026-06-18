@@ -1,8 +1,10 @@
 using Microsoft.AspNetCore.Builder;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Muhasabaa.Application;
+using Muhasabaa.Infrastructure;
 using Muhasabaa.Infrastructure.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,13 +18,20 @@ builder.Services.AddRateLimiting();
 
 var app = builder.Build();
 
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    db.Database.Migrate();
+}
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
 }
 
-app.UseHttpsRedirection();
+if (!app.Environment.IsProduction())
+    app.UseHttpsRedirection();
 
 app.Use(async (context, next) =>
 {
@@ -32,6 +41,7 @@ app.Use(async (context, next) =>
     await next();
 });
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.UseRateLimiter();

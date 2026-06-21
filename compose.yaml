@@ -1,15 +1,20 @@
 ﻿services:
-  db:
-    image: postgres:16
-    container_name: muhasabaa_db
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: muhasabaa-sqlserver
     environment:
-      POSTGRES_USER: muhasabaa
-      POSTGRES_PASSWORD: muhasabaa_dev
-      POSTGRES_DB: muhasabaa
+      ACCEPT_EULA: "Y"
+      MSSQL_SA_PASSWORD: "Muhasba@Dev2026"
+      MSSQL_PID: "Developer"
     ports:
-      - "5433:5432"   
+      - "1433:1433"
     volumes:
-      - muhasabaa_pgdata:/var/lib/postgresql/data
+      - mssql_data:/var/opt/mssql
+    healthcheck:
+      test: ["CMD-SHELL", "/opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P \"$$MSSQL_SA_PASSWORD\" -C -Q 'SELECT 1' || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
 
 volumes:
-  muhasabaa_pgdata:
+  mssql_data:

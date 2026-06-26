@@ -16,6 +16,17 @@ builder.Services.AddJwtAuthentication(builder.Configuration);
 builder.Services.AddMediatr();
 builder.Services.AddRateLimiting();
 
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("Dev", policy =>
+    {
+        policy.WithOrigins("http://localhost:5174")
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+    });
+});
+
 var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())
@@ -41,6 +52,8 @@ app.Use(async (context, next) =>
     await next();
 });
 
+
+app.UseCors("Dev");
 app.UseAuthentication();
 app.UseAuthorization();
 

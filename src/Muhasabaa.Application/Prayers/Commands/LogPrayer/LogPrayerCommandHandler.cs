@@ -23,6 +23,7 @@ public sealed class LogPrayerCommandHandler(
 
         var today = DateOnly.FromDateTime(DateTime.UtcNow);
 
+        //race condition fixed by adding and index to userId , date , prayerName
         var alreadyLogged = await dbContext.PrayerLogs
             .AnyAsync(p => p.UserId == request.UserId
                            && p.Date == today

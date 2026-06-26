@@ -15,6 +15,12 @@ public class HabitConfiguration : IEntityTypeConfiguration<Habit>
         builder.Property(h => h.NameAr)
             .IsRequired()
             .HasMaxLength(100);
+
+        builder.Property(h => h.Category)
+            .HasConversion<int>();
+
+        builder.Property(h => h.InputType)
+            .HasConversion<int>();
         
         builder.HasIndex(h => new { h.Id, h.NameAr})
             .IsUnique();

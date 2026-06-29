@@ -14,6 +14,7 @@ using Microsoft.IdentityModel.Tokens;
 using Muhasabaa.Application.Common.Interfaces;
 using Muhasabaa.Application.Common.Options;
 using Muhasabaa.Domain.Entities.UserData;
+using Muhasabaa.Domain.Entities.Helpers;
 using Muhasabaa.Infrastructure.Services;
 
 namespace Muhasabaa.Infrastructure.Extensions;
@@ -29,6 +30,8 @@ public static class InfrastructureExtensions
         services.AddScoped<IAppDbContext>(sp => sp.GetRequiredService<AppDbContext>());
         services.AddScoped<IIdentityService, IdentityService>();
         services.AddScoped<ITokenService, TokenService>();
+        services.AddScoped<IDailyLogService, DailyLogService>();
+        services.AddSingleton<DailyScoreCalculator>();
 
         services
             .AddIdentity<ApplicationUser, IdentityRole<Guid>>()

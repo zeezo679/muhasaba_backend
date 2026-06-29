@@ -4,6 +4,7 @@ using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Muhasabaa.Application.Common.Interfaces;
+using Muhasabaa.Domain.Entities.DailyLogs;
 using Muhasabaa.Domain.Entities.Prayer;
 using Muhasabaa.Domain.Entities.UserData;
 using Muhasabaa.Domain.Errors;
@@ -12,7 +13,8 @@ namespace Muhasabaa.Application.Prayers.Commands.LogPrayer;
 
 public sealed class LogPrayerCommandHandler(
     IAppDbContext dbContext,
-    UserManager<ApplicationUser> userManager)
+    UserManager<ApplicationUser> userManager,
+    IDailyLogService dailyLogService)
     : IRequestHandler<LogPrayerCommand, ErrorOr<LogPrayerResult>>
 {
     public async Task<ErrorOr<LogPrayerResult>> Handle(LogPrayerCommand request, CancellationToken cancellationToken)
@@ -33,6 +35,7 @@ public sealed class LogPrayerCommandHandler(
         if (alreadyLogged)
             return PrayerLogErrors.AlreadyLogged;
 
+
         var result = PrayerLog.Create(
             request.UserId,
             request.PrayerName,
@@ -47,6 +50,22 @@ public sealed class LogPrayerCommandHandler(
         var log = result.Value;
         dbContext.PrayerLogs.Add(log);
         await dbContext.SaveChangesAsync(cancellationToken);
+
+        var dailyLog = await dbContext.DailyLogs
+            .SingleOrDefaultAsync(d => d.UserId == request.UserId && d.Date == today, cancellationToken);
+
+        if (dailyLog is null)
+        {
+            var newLog = DailyLog.Create(request.UserId, today);
+
+            if (newLog.IsError) return newLog.Errors;
+
+            dbContext.DailyLogs.Add(newLog.Value);
+            
+            await dbContext.SaveChangesAsync(cancellationToken);
+        }
+
+        await dailyLogService.RecalculateAsync(request.UserId, cancellationToken);
 
         return new LogPrayerResult(log.Id, log.PrayerName, log.Status, log.PrayedSunnah, log.Score, log.MaximumScore, log.Date);
     }

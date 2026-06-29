@@ -27,6 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Muhasabaa.Application\Muhasabaa.Application.csproj" />
     <ProjectReference Include="..\Muhasabaa.Infrastructure\Muhasabaa.Infrastructure.csproj" />
   </ItemGroup>
 

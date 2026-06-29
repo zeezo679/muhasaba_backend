@@ -1,5 +1,6 @@
 namespace Muhasabaa.Domain.Entities.DailyLogs;
 using ErrorOr;
+using Muhasabaa.Domain.Entities.Helpers;
 
 public class DailyLog
 {
@@ -26,17 +27,17 @@ public class DailyLog
     private DailyLog() { } // for EF Core
 
     public static ErrorOr<DailyLog> Create(
-        Guid userId, 
-        DateOnly date, 
-        int dhikrCount,
-        int quranPages,
-        int gymMinutes,
-        int screenTimeHours,
-        bool prayedQiyam,
-        int earnedScore, 
-        int maximumScore, 
-        int sleepHours, 
-        int deepWorkHours)
+        Guid userId,
+        DateOnly date,
+        int dhikrCount = 0,
+        int quranPages = 0,
+        int gymMinutes = 0,
+        int screenTimeHours = 0,
+        bool prayedQiyam = false,
+        int earnedScore = 0,
+        int maximumScore = 1,
+        int sleepHours = 0,
+        int deepWorkHours = 0)
     {
         if (earnedScore < 0) return Error.Failure("EarnedScore must be non-negative.");
         if (maximumScore <= 0) return Error.Failure("MaximumScore must be greater than zero.");
@@ -67,5 +68,27 @@ public class DailyLog
             DeepWorkHours = deepWorkHours,
             CalculatedAt = DateTime.UtcNow
         };
+    }
+
+    public void Update(
+    int? dhikrCount = null,
+    int? quranPages = null,
+    int? gymMinutes = null,
+    int? screenTimeHours = null,
+    bool? prayedQiyam = null)
+    {
+        DhikrCount = dhikrCount ?? DhikrCount;
+        QuranPages = quranPages ?? QuranPages;
+        GymMinutes = gymMinutes ?? GymMinutes;
+        ScreenTimeHours = screenTimeHours ?? ScreenTimeHours;
+        PrayedQiyam = prayedQiyam ?? PrayedQiyam;
+    }
+
+    public void Recalculate(DailyScore score)
+    {
+        EarnedScore = score.earned;
+        MaximumScore = score.maximum;
+        Percentage = score.percentage;
+        CalculatedAt = DateTime.UtcNow;
     }
 }

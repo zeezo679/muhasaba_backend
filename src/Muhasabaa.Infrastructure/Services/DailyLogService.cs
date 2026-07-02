@@ -2,46 +2,32 @@ using ErrorOr;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Muhasabaa.Application.Common.Interfaces;
+using Muhasabaa.Domain.Entities.DailyLogs;
 using Muhasabaa.Domain.Entities.Habits;
 using Muhasabaa.Domain.Entities.Helpers;
+using Muhasabaa.Domain.Entities.Prayer;
 using Muhasabaa.Domain.Entities.UserData;
+using Muhasabaa.Domain.Enums;
 
 namespace Muhasabaa.Infrastructure.Services;
 
-public class DailyLogService(
-    IAppDbContext dbContext,
-    UserManager<ApplicationUser> userManager,
-    DailyScoreCalculator calculator) : IDailyLogService
+public class DailyLogService(DailyScoreCalculator calculator) : IDailyLogService
 {
-    public async Task<ErrorOr<Updated>> RecalculateAsync(Guid userId, CancellationToken ct = default)
+    public ErrorOr<Updated> Recalculate(DailyLog latestDailyLog, IReadOnlyCollection<PrayerLog> todaysPrayerLogs, Gender? userGender)
     {
-        var today = DateOnly.FromDateTime(DateTime.UtcNow);
-
-        var dailyLog = await dbContext.DailyLogs
-            .SingleOrDefaultAsync(d => d.UserId == userId && d.Date == today, ct);
-
-        if (dailyLog is null)
-            return Error.NotFound("DailyLog.NotFound", "No daily log found for today.");
-
-        var prayers = await dbContext.PrayerLogs
-            .Where(p => p.UserId == userId && p.Date == today)
-            .ToListAsync(ct);
-
-        var user = await userManager.FindByIdAsync(userId.ToString());
-
         var score = calculator.Calculate(
-            prayers,
-            dailyLog.DhikrCount,
-            dailyLog.QuranPages,
-            dailyLog.GymMinutes,
-            dailyLog.ScreenTimeHours,
-            dailyLog.PrayedQiyam,
+            todaysPrayerLogs,
+            latestDailyLog.DhikrCount,
+            latestDailyLog.QuranPages,
+            latestDailyLog.GymMinutes,
+            latestDailyLog.ScreenTimeHours,
+            latestDailyLog.PrayedQiyam,
             Enumerable.Empty<CustomHabitLog>(),
-            user?.Gender);
+            userGender);
 
-        dailyLog.Recalculate(score);
-        await dbContext.SaveChangesAsync(ct);
-
+        latestDailyLog.Recalculate(score);
         return Result.Updated;
+        
     }
+    
 }

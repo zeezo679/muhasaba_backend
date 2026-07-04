@@ -23,7 +23,7 @@ builder.Services.AddCors(options =>
     {
         policy.SetIsOriginAllowed(origin =>
             new Uri(origin).Host == "localhost" ||
-            new Uri(origin).Host == "https://muhasaba-client-prod-test.vercel.app/" ||
+            new Uri(origin).Host == "https://muhasaba-client-prod-test.vercel.app" ||
             new Uri(origin).Host.EndsWith(".ngrok-free.dev"));
         
         policy.WithOrigins("http://localhost:3000")

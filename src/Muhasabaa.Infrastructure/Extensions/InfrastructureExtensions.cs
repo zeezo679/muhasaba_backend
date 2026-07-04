@@ -25,7 +25,7 @@ public static class InfrastructureExtensions
     {
         var connectionString = GetConnectionString(config);
         services.AddDbContext<AppDbContext>(options =>
-            options.UseNpgsql(connectionString));
+            options.UseSqlServer(connectionString));
 
         services.AddScoped<IAppDbContext>(sp => sp.GetRequiredService<AppDbContext>());
         services.AddScoped<IIdentityService, IdentityService>();
@@ -101,17 +101,23 @@ public static class InfrastructureExtensions
                 ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
         }
 
-        if (connectionUrl.StartsWith("postgres://") || connectionUrl.StartsWith("postgresql://"))
+        if (connectionUrl.StartsWith("sqlserver://") || connectionUrl.StartsWith("mssql://"))
         {
             var uri = new Uri(connectionUrl);
-            var userInfo = uri.UserInfo.Split(':');
-            var username = userInfo[0];
-            var password = userInfo.Length > 1 ? userInfo[1] : "";
+            var userInfo = uri.UserInfo.Split(':', 2, StringSplitOptions.RemoveEmptyEntries);
+            var username = userInfo.Length > 0 ? userInfo[0] : string.Empty;
+            var password = userInfo.Length > 1 ? userInfo[1] : string.Empty;
             var host = uri.Host;
-            var port = uri.Port;
-            var database = uri.AbsolutePath.TrimStart('/');
+            var port = uri.IsDefaultPort ? 1433 : uri.Port;
+            var database = uri.AbsolutePath.Trim('/');
+            var databaseSegment = string.IsNullOrEmpty(database) ? string.Empty : $"Database={database};";
 
-            return $"Host={host};Port={port};Database={database};Username={username};Password={password};SSL Mode=Require;Trust Server Certificate=true;";
+            return $"Server={host},{port};{databaseSegment}User Id={username};Password={password};TrustServerCertificate=True;";
+        }
+
+        if (connectionUrl.Contains("://", StringComparison.Ordinal))
+        {
+            throw new InvalidOperationException("DATABASE_URL must be a SQL Server connection string or a sqlserver:// / mssql:// URI.");
         }
 
         return connectionUrl;

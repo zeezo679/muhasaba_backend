@@ -21,10 +21,16 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("Dev", policy =>
     {
-        policy.WithOrigins("http://localhost:5173")
+        policy.SetIsOriginAllowed(origin =>
+            new Uri(origin).Host == "localhost" ||
+            new Uri(origin).Host.EndsWith(".ngrok-free.dev"));
+        
+        policy.WithOrigins("http://localhost:3000")
             .AllowAnyHeader()
             .AllowAnyMethod();
     });
+    
+    
 });
 
 var app = builder.Build();

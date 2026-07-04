@@ -22,9 +22,12 @@ builder.Services.AddCors(options =>
     options.AddPolicy("Dev", policy =>
     {
         policy.SetIsOriginAllowed(origin =>
-            new Uri(origin).Host == "localhost" ||
-            new Uri(origin).Host == "https://muhasaba-client-prod-test.vercel.app" ||
-            new Uri(origin).Host.EndsWith(".ngrok-free.dev"));
+        {
+            var host = new Uri(origin).Host;
+            return host == "localhost" ||
+                   host == "muhasaba-client-prod-test.vercel.app" ||
+                   host.EndsWith(".ngrok-free.dev");
+        });
         
         policy.WithOrigins("http://localhost:3000")
             .AllowAnyHeader()

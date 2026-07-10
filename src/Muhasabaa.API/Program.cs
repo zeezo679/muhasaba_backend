@@ -32,7 +32,7 @@ builder.Services.AddCors(options =>
             policy.SetIsOriginAllowed(origin =>
                 {
                     var host = new Uri(origin).Host;
-                    return host == "muhasaba-client-prod-test.vercel.app" || host.EndsWith(".run.app");
+                    return host == "muhasaba-client-prod-test.vercel.app" || host.EndsWith(".run.app") || host == "localhost";
                 })
                 .AllowAnyHeader()
                 .AllowAnyMethod();

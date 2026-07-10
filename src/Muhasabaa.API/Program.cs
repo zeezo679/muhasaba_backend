@@ -21,15 +21,22 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("Dev", policy =>
     {
-        policy.SetIsOriginAllowed(origin =>
-            {
-                var host = new Uri(origin).Host;
-                return host == "localhost" ||
-                       host == "muhasaba-client-prod-test.vercel.app" ||
-                       host.EndsWith(".ngrok-free.dev");
-            })
-            .AllowAnyHeader()
-            .AllowAnyMethod();
+        if (builder.Environment.IsDevelopment())
+        {
+            policy.SetIsOriginAllowed(_ => true)
+                .AllowAnyHeader()
+                .AllowAnyMethod();
+        }
+        else
+        {
+            policy.SetIsOriginAllowed(origin =>
+                {
+                    var host = new Uri(origin).Host;
+                    return host == "muhasaba-client-prod-test.vercel.app" || host.EndsWith(".run.app");
+                })
+                .AllowAnyHeader()
+                .AllowAnyMethod();
+        }
     });
 });
 

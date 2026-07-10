@@ -7,19 +7,17 @@ using Muhasabaa.Domain.Entities.DailyLogs;
 using Muhasabaa.Domain.Entities.Prayer;
 using Muhasabaa.Domain.Entities.UserData;
 
-namespace Muhasabaa.Application.Spiritual.Commands.LogQuran;
+namespace Muhasabaa.Application.Physical.Commands;
 
-public sealed class LogQuranCommandHandler(
-    IAppDbContext dbContext,
+public class LogGymCommandHandler(IAppDbContext dbContext,
     UserManager<ApplicationUser> userManager,
-    IDailyLogService dailyLogService)
-    : IRequestHandler<LogQuranCommand, ErrorOr<Updated>>
+    IDailyLogService dailyLogService) : IRequestHandler<LogGymCommand, ErrorOr<Updated>>
 {
-    public async Task<ErrorOr<Updated>> Handle(LogQuranCommand request, CancellationToken ct)
+    public async Task<ErrorOr<Updated>> Handle(LogGymCommand request, CancellationToken ct)
     {
         var today = DateOnly.FromDateTime(DateTime.UtcNow);
 
-        var dailyLogResult = await FetchOrCreateDailyLog(request.UserId, today, request.Pages, ct);
+        var dailyLogResult = await FetchOrCreateDailyLog(request.UserId, today, request.Minutes, ct);
         if (dailyLogResult.IsError)
             return dailyLogResult.Errors;
 
@@ -37,16 +35,15 @@ public sealed class LogQuranCommandHandler(
 
         return Result.Updated;
     }
-
     private async Task<ErrorOr<DailyLog>> FetchOrCreateDailyLog(
-        Guid userId, DateOnly today, int quranPages, CancellationToken ct)
+        Guid userId, DateOnly today, int gymMinutes, CancellationToken ct)
     {
         var dailyLog = await dbContext.DailyLogs
             .SingleOrDefaultAsync(d => d.UserId == userId && d.Date == today, ct);
 
         if (dailyLog is null)
         {
-            var createResult = DailyLog.Create(userId, today, quranPages: quranPages);
+            var createResult = DailyLog.Create(userId, today, gymMinutes: gymMinutes);
             if (createResult.IsError)
                 return createResult.Errors;
 
@@ -55,7 +52,7 @@ public sealed class LogQuranCommandHandler(
         }
         else
         {
-            dailyLog.Update(quranPages: quranPages);
+            dailyLog.Update(gymMinutes: gymMinutes);
         }
 
         return dailyLog;

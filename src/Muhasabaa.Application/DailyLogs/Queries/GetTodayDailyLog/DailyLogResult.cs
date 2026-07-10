@@ -7,6 +7,7 @@ public sealed record DailyLogResult(
     int QuranPages,
     int GymMinutes,
     bool PrayedQiyam,
+    int SleepHours,
     int EarnedScore,
     int MaximumScore,
     int Percentage,

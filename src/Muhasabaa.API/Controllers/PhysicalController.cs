@@ -19,6 +19,16 @@ public sealed class PhysicalController(ISender sender) : AppBaseController
         var result = await sender.Send(command, cancellationToken);
         return result.Match(_ => Ok(), Problem);
     }
+
+    [HttpPost("sleep")]
+    public async Task<IActionResult> LogSleep(LogSleepRequest request, CancellationToken cancellationToken)
+    {
+        var userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
+        var command = new LogSleepCommand(userId, request.Hours);
+        var result = await sender.Send(command, cancellationToken);
+        return result.Match(_ => Ok(), Problem);
+    }
 }
 
 public sealed record LogGymRequest(int Minutes);
+public sealed record LogSleepRequest(int Hours);

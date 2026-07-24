@@ -8,6 +8,8 @@ public sealed record DailyLogResult(
     int GymMinutes,
     bool PrayedQiyam,
     int SleepHours,
+    int ScreenTimeHours,
+    int DeepWorkHours,
     int EarnedScore,
     int MaximumScore,
     int Percentage,

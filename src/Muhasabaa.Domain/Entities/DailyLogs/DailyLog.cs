@@ -76,7 +76,8 @@ public class DailyLog
     int? gymMinutes = null,
     int? screenTimeHours = null,
     bool? prayedQiyam = null,
-    int? sleepHours = null)
+    int? sleepHours = null,
+    int? deepWorkHours = null)
     {
         DhikrCount = dhikrCount ?? DhikrCount;
         QuranPages = quranPages ?? QuranPages;
@@ -84,6 +85,7 @@ public class DailyLog
         ScreenTimeHours = screenTimeHours ?? ScreenTimeHours;
         PrayedQiyam = prayedQiyam ?? PrayedQiyam;
         SleepHours = sleepHours ?? SleepHours;
+        DeepWorkHours = deepWorkHours ?? DeepWorkHours;
     }
 
     public void Recalculate(DailyScore score)

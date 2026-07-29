@@ -49,6 +49,41 @@ public sealed class AuthController(ISender sender) : AppBaseController
         var result = await sender.Send(command, cancellationToken);
         return result.Match(_ => NoContent(), Problem);
     }
+
+    //smoke testing the resend api works on monsterASP
+    [HttpGet("test-resend")]
+    public async Task<IActionResult> TestResend(IHttpClientFactory clientFactory)
+    {
+        var client = clientFactory.CreateClient();
+    
+        // Set a short timeout so your request doesn't hang indefinitely if blocked
+        client.Timeout = TimeSpan.FromSeconds(5);
+
+        try
+        {
+            // Resend's base API URL (GET returns a 404 or 401, which proves connectivity works)
+            var response = await client.GetAsync("https://api.resend.com/emails");
+            
+            return Ok(new 
+            { 
+                Success = true, 
+                StatusCode = (int)response.StatusCode, 
+                Message = "Egress successful! Host reached api.resend.com." 
+            });
+        }
+        catch (TaskCanceledException)
+        {
+            return Problem("Network Timeout: Outbound port 443 might be blocked or proxied by MonsterASP.");
+        }
+        catch (HttpRequestException ex)
+        {
+            return Problem($"HTTP/TLS Error: {ex.InnerException?.Message ?? ex.Message}");
+        }
+        catch (Exception ex)
+        {
+            return Problem($"Unexpected Error: {ex.Message}");
+        }
+    }
 }
 
 public sealed record RegisterRequest(string Name, string Email, string Password, Gender? Gender);

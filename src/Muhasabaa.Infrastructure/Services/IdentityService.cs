@@ -1,4 +1,6 @@
 // src/Muhasabaa.Infrastructure/Services/IdentityService.cs
+
+using Azure.Core;
 using ErrorOr;
 using Muhasabaa.Application.Common.DTOs;
 using Muhasabaa.Application.Common.Interfaces;
@@ -42,7 +44,7 @@ public class IdentityService : IIdentityService
             var errors = result.Errors.Select(e => Error.Failure(e.Code, e.Description)).ToList();
             return errors;
         }
-        
+    
         return user;
     }
 
